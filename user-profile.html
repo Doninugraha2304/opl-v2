@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <meta name="robots" content="noindex">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="d-flex flex-column min-vh-100">
+        <div class="navbar-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #3B5998;">
+                <div class="navbar-brand d-flex align-items-center">
+                    <img src="assets/images/logo umkt.png" alt="Logo" style="height: 40px; margin-left: 10px;">
+                    <!-- Dropdown Courses -->
+                    <li class="nav-item dropdown list-unstyled ml-3">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="coursesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">school</i> Courses
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="coursesDropdown">
+                            <h6 class="dropdown-header">Favorite Courses</h6>
+                            <a class="dropdown-item" href="dashbord-user.html">
+                                <img src="modul2.jpg" alt="Pemrograman Dasar Image" style="margin-right: 10px;">
+                                <span class="text-ellipsis">Pemrograman Dasar</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <img src="modul1.jpg" alt="Course 2 Image" style="margin-right: 10px;">
+                                <span class="text-ellipsis">Kursus 2</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <img src="modul2.jpg" alt="Course 3 Image" style="margin-right: 10px;">
+                                <span class="text-ellipsis">Kursus 3</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" id="allCourses">
+                                <i class="material-icons">arrow_back</i> All Courses
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-footer">
+                                <a class="dropdown-item manage-item" href="#"><i class="material-icons">edit</i> Style Color</a>
+                            </div>
+                        </div>
+                    </li>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Profile Dropdown -->
+                        <li class="nav-item profile-link dropdown">
+                            <a class="nav-link" href="javascript:void(0)" onclick="toggleProfileDropdown()">
+                                <img id="navbarProfileImage" src="assets/images/people/110/guy-7.jpg" alt="Profil">
+                            </a>
+                            <div class="dropdown-menu" id="profileDropdownMenu">
+                                <div class="dropdown-section">
+                                    <h6>Profile</h6>
+                                    <a class="dropdown-item" href="#aboutmeSection">
+                                        <i class="material-icons">person</i>About me
+                                    </a>
+                                    <a class="dropdown-item" href="#portfolioSection">
+                                        <i class="material-icons">work</i>Portfolio
+                                    </a>
+                                    <a class="dropdown-item" href="#communitySection">
+                                        <i class="material-icons">group</i>Community
+                                    </a>
+                                    <a class="dropdown-item" href="#credentialsSection">
+                                        <i class="material-icons">check_circle</i>Credentials
+                                    </a>
+                                    <a class="dropdown-item" href="#blogSection">
+                                        <i class="material-icons">description</i>Blog
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="acount.html">
+                                        <i class="material-icons">settings</i>Setting Account
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Cover Photo Section -->
+        <div class="cover-photo" style="background-image: url('assets/images/cover-photo.jpg');">
+            <div class="cover-photo-overlay"></div>
+            <div class="change-cover-icon" onclick="changeCoverPhoto()">
+                <i class="material-icons">photo_camera</i>
+            </div>
+        </div>
+
+        <!-- Profile Picture in the Center -->
+        <div class="profile-center-container text-center">
+            <div class="profile-background" id="profileBackground">
+                <div class="profile-picture-container">
+                    <img src="assets/images/people/110/guy-7.jpg" alt="Profile Picture" class="profile-picture">
+                    <div class="change-icon change-profile-icon">
+                        <i class="material-icons">camera_alt</i>
+                    </div>
+                </div>
+                <div class="change-background-icon">
+                    <i class="material-icons" onclick="toggleColorPicker()">format_paint</i>
+                    <div id="colorPickerContainer" style="display: none;">
+                        <input type="color" id="backgroundColorPicker">
+                        <div class="mt-2">
+                            <button class="btn btn-primary btn-sm" onclick="applyBackgroundColor()">Apply</button>
+                            <button class="btn btn-secondary btn-sm" onclick="cancelBackgroundColor()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Info Section -->
+            <div class="additional-info mt-4">
+                <div class="location-info">
+                    <div class="info-item">
+                        <i class="material-icons">location_on</i>
+                        <span>Asia, Purwajaya</span>
+                        <button class="btn btn-outline-primary btn-sm ml-2">
+                            <i class="material-icons">edit</i>
+                        </button>
+                    </div>
+                </div>
+                
+
+                <div class="info-row mt-3">
+                    <div class="info-item">
+                        <span class="info-number">12</span>
+                        <span class="info-label">Like</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-number">0</span>
+                        <span class="info-label">Followers</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-number">22</span>
+                        <span class="info-label">Community</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tentang Saya Section -->
+            <div class="container centered-content mt-5" style="position: relative; z-index: 1;">
+                <div class="card shadow-lg p-4 mb-5 bg-white rounded border-primary" style="max-width: 900px;">
+                    <ul class="nav nav-tabs justify-content-center border-bottom-0" id="profileTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="true">Tentang Saya</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="portfolio-tab" data-toggle="tab" href="#portfolio" role="tab" aria-controls="portfolio" aria-selected="false">Portofolio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="community-tab" data-toggle="tab" href="#community" role="tab" aria-controls="community" aria-selected="false">Komunitas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="credentials-tab" data-toggle="tab" href="#credentials" role="tab" aria-controls="credentials" aria-selected="false">Sertifikat</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="blog-tab" data-toggle="tab" href="#blog" role="tab" aria-controls="blog" aria-selected="false">Blog</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-4" id="profileTabContent">
+                        <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+                            <section id="aboutmeSection" class="mb-5">
+                                <h2 class="text-primary">Tentang Saya</h2>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Tentang Saya</h5>
+                                        <p class="card-text">Halo! Saya seorang pengembang yang bersemangat dengan pengalaman dalam membuat aplikasi web dan mobile. Saya senang memecahkan masalah kompleks dan mewujudkan ide-ide menjadi kenyataan.</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- Portofolio Section -->
+                        <div class="tab-pane fade" id="portfolio" role="tabpanel" aria-labelledby="portfolio-tab">
+                            <section id="portfolioSection" class="mb-5">
+                                <h2 class="text-primary">Portofolio</h2>
+                                <div class="card-deck">
+                                    <div class="card">
+                                        <img src="assets/images/project1.jpg" class="card-img-top" alt="Proyek 1">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Proyek 1</h5>
+                                            <p class="card-text">Deskripsi proyek 1. Ini adalah aplikasi web yang dikembangkan menggunakan HTML, CSS, JavaScript, dan Bootstrap.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <img src="assets/images/project2.jpg" class="card-img-top" alt="Proyek 2">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Proyek 2</h5>
+                                            <p class="card-text">Deskripsi proyek 2. Proyek ini melibatkan penggunaan ReactJS untuk membuat antarmuka pengguna yang interaktif.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <img src="assets/images/project3.jpg" class="card-img-top" alt="Proyek 3">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Proyek 3</h5>
+                                            <p class="card-text">Deskripsi proyek 3. Aplikasi mobile yang dikembangkan menggunakan Flutter.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- Komunitas Section -->
+                        <div class="tab-pane fade" id="community" role="tabpanel" aria-labelledby="community-tab">
+                            <section id="communitySection" class="mb-5">
+                                <h2 class="text-primary">Komunitas</h2>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Keterlibatan Komunitas</h5>
+                                        <p class="card-text">Saya aktif dalam beberapa komunitas pengembang, termasuk kelompok meetup JavaScript lokal dan forum online untuk pengembang web.</p>
+                                        <p class="card-text">Saya sering berpartisipasi dalam hackathon dan berkontribusi pada proyek sumber terbuka.</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- Sertifikat Section -->
+                        <div class="tab-pane fade" id="credentials" role="tabpanel" aria-labelledby="credentials-tab">
+                            <section id="credentialsSection" class="mb-5">
+                                <h2 class="text-primary">Sertifikat</h2>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Sertifikat Saya</h5>
+                                        <ul class="list-group">
+                                            <li class="list-group-item">Pengembang Web Bersertifikat - XYZ Institute</li>
+                                            <li class="list-group-item">Google Associate Android Developer</li>
+                                            <li class="list-group-item">Microsoft Certified Azure Developer Associate</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- Blog Section -->
+                        <div class="tab-pane fade" id="blog" role="tabpanel" aria-labelledby="blog-tab">
+                            <section id="blogSection" class="mb-5">
+                                <h2 class="text-primary">Blog</h2>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Postingan Blog Terbaru</h5>
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item list-group-item-action">
+                                                <h5 class="mb-1">Memahami Closures di JavaScript</h5>
+                                                <p class="mb-1">Penjelasan mendalam tentang closures di JavaScript, menjelaskan cara kerjanya dan penggunaannya secara praktis.</p>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action">
+                                                <h5 class="mb-1">Memulai dengan Flutter</h5>
+                                                <p class="mb-1">Pengenalan tentang Flutter, toolkit UI dari Google untuk membangun aplikasi yang dikompilasi secara native.</p>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action">
+                                                <h5 class="mb-1">Tips Meningkatkan Performa Web</h5>
+                                                <p class="mb-1">Tips praktis untuk mengoptimalkan aplikasi web Anda agar memberikan pengalaman pengguna yang lebih cepat dan lebih lancar.</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <footer class="footer mt-auto">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <h5 class="footer-title">Contact Information</h5>
+                        <p>Email: info@umkt.ac.id</p>
+                        <p>Phone: +62 541 1234567</p>
+                        <p>Address: Jl. Ir. H. Juanda No. 15, Samarinda, Kalimantan Timur</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <h5 class="footer-title">Help & Support</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#">FAQs</a></li>
+                            <li><a href="#">Support Center</a></li>
+                            <li><a href="#">How to Use</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-12 mb-4">
+                        <h5 class="footer-title">Donations</h5>
+                        <p>Your support helps us continue our mission to provide quality education and resources to our students. Consider making a donation to UMKT.</p>
+                        <button class="btn btn-outline-light">Donate Now</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center mt-3">
+                        <h5 class="footer-title">Universitas Muhammadiyah Kalimantan Timur (UMKT)</h5>
+                        <p>&copy; 2024 UMKT. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- End of Footer Section -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function toggleProfileDropdown() {
+            const profileDropdownMenu = document.getElementById("profileDropdownMenu");
+            profileDropdownMenu.classList.toggle("show");
+        }
+
+        function changeProfilePicture() {
+            alert('Feature to change profile picture can be implemented here.');
+        }
+
+        function changeCoverPhoto() {
+            alert('Feature to change cover photo can be implemented here.');
+        }
+
+        function toggleColorPicker() {
+            const colorPickerContainer = document.getElementById("colorPickerContainer");
+            colorPickerContainer.style.display = colorPickerContainer.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function applyBackgroundColor() {
+            const profileBackground = document.getElementById("profileBackground");
+            const newBackgroundColor = document.getElementById("backgroundColorPicker").value;
+            profileBackground.style.backgroundColor = newBackgroundColor;
+            toggleColorPicker(); // Hide color picker after applying
+        }
+
+        function cancelBackgroundColor() {
+            toggleColorPicker(); // Hide color picker without applying changes
+        }
+    </script>
+
+    <style>
+        body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .container-fluid, .container {
+            padding-right: 0;
+            padding-left: 0;
+            margin-right: auto;
+            margin-left: auto;
+            max-width: 1140px; /* Lebar maksimal yang sama dengan navbar */
+        }
+
+        .centered-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%; /* Lebarkan container full ke kanan dan kiri */
+            margin: 0 auto;
+            padding-left: 0; /* Hilangkan padding kiri */
+            padding-right: 0; /* Hilangkan padding kanan */
+        }
+
+        .card,
+        .card-deck {
+            width: 100%; /* Lebarkan card full ke kanan dan kiri */
+            margin: 0 auto;
+        }
+
+        .card {
+            border: 1px solid #3B5998; /* Garis batas */
+            border-radius: 10px; /* Sudut membulat */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
+        }
+
+        .nav-tabs {
+            border-bottom: none; /* Hilangkan garis bawah tab */
+            justify-content: space-between; /* Sebar tab ke seluruh lebar layar */
+        }
+
+        .nav-tabs .nav-link {
+            color: #3B5998;
+            font-weight: bold;
+            border: 1px solid transparent;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            margin: 0 5px;
+            width: 100%; /* Lebarkan setiap tab */
+            text-align: center; /* Pusatkan teks dalam tab */
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: #3B5998;
+            color: white;
+            border-color: #3B5998 #3B5998 transparent;
+        }
+
+        .tab-content {
+            padding: 20px; /* Tambahkan padding di dalam tab content */
+        }
+
+        /* Style for cover photo and profile picture */
+        .cover-photo {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 100px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            overflow: hidden;
+            z-index: 1;
+            border-bottom: 5px solid #3B5998; /* Garis batas bawah */
+        }
+
+        .cover-photo-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .profile-center-container {
+            position: relative;
+            margin-top: -100px; /* Sesuaikan untuk memindahkan gambar profil lebih ke bawah */
+            z-index: 20;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .profile-background {
+            position: relative;
+            background-color: #e0e0e0; /* Warna latar default */
+            padding: 40px 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Bayangan lebih kuat */
+            width: 100%;
+            text-align: center;
+            margin: 0 auto;
+            height: 370px; /* Tinggi background dikurangi */
+            min-height: 300px; /* Tinggi minimum yang dikurangi */
+            overflow: hidden; /* Mencegah overflow */
+        }
+
+        /* Gambar Profil */
+        .profile-picture-container {
+            position: absolute;
+            bottom: 0; /* Letakkan gambar profil di bagian bawah */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            margin-bottom: 20px; /* Tambahkan margin jika ingin memberi jarak dari bawah */
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan halus untuk penekanan */
+            background-color: white;
+        }
+
+        .change-icon {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border-radius: 50%;
+            padding: 8px;
+        }
+
+        .profile-picture-container:hover .change-profile-icon {
+            display: block;
+        }
+
+        .change-cover-icon {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border-radius: 50%;
+            padding: 8px;
+            z-index: 20;
+            cursor: pointer;
+        }
+
+        .cover-photo-overlay:hover .change-cover-icon {
+            display: block;
+        }
+
+        .change-background-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: inline-block;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border-radius: 50%;
+            padding: 8px;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        #colorPickerContainer {
+            margin-top: 5px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Dropdown Menu */
+        #profileDropdownMenu {
+            max-width: 300px;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background-color: #3B5998;
+            box-shadow: 0 2px 10px #333;
+            font-family: 'Roboto', sans-serif;
+            display: none;
+            position: absolute;
+            top: 98%;
+            left: -180%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+
+        #profileDropdownMenu h6 {
+            font-size: 16px;
+            font-weight: 500;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        #profileDropdownMenu .dropdown-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: white;
+        }
+
+        #profileDropdownMenu .dropdown-item i {
+            margin-right: 10px;
+        }
+
+        #profileDropdownMenu .dropdown-divider {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        #profileDropdownMenu.show {
+            display: block;
+        }
+
+        h2 {
+            color: #3B5998;
+            margin-bottom: 20px;
+        }
+
+        .card-deck .card {
+            min-width: 300px;
+        }
+
+        .card-body ul.list-group {
+            padding-left: 0;
+        }
+
+        .card-body ul.list-group li {
+            border: none;
+            padding: 10px 0;
+        }
+
+        .list-group-item {
+            border: none;
+            padding: 10px 0;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: #3B5998;
+            color: white;
+        }
+
+        .nav-tabs .nav-link {
+            color: #3B5998;
+        }
+
+        /* Additional Info Section */
+        
+
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .location-info {
+            display: flex;
+            justify-content: flex-start; /* Align items to the start of the container */
+            align-items: center; /* Center items vertically */
+            width: 80%;
+            margin: 15px auto;
+            padding-left: 0; /* Remove negative padding */
+            flex-direction: row; /* Arrange items in a single row */
+        }
+
+        .location-info .info-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .location-info .info-item span {
+            white-space: nowrap; /* Memastikan teks tidak terputus ke baris baru */
+        }
+
+        .location-info .info-item i,
+        .location-info .info-item span,
+        .location-info .info-item button {
+            margin-right: 10px; /* Spasi antara ikon, teks, dan tombol */
+        }
+
+
+        .location-info .info-item button {
+            border: none; /* Menghapus border */
+            background-color: transparent; /* Membuat latar belakang transparan */
+            padding: 0; /* Menghilangkan padding */
+            margin-left: 10px; /* Menjaga jarak antar elemen */
+            cursor: pointer; /* Mengubah kursor menjadi pointer untuk tombol */
+            transition: transform 0.3s ease, color 0.3s ease; /* Menambahkan transisi untuk efek smooth pada transformasi dan warna */
+            color: #3B5998; /* Menjaga warna default */
+        }
+
+        .location-info .info-item button:hover {
+            transform: scale(1.2); /* Membesar hingga 20% saat dihover */
+            color: #05369f; /* Mengubah warna menjadi biru muda saat dihover */
+        }
+
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            width: 80%; /* Sesuaikan agar tidak terlalu mepet */
+            margin: 15px auto; /* Membuat margin secara otomatis pada kiri dan kanan */
+            padding-left: -5px; /* Geser konten ke kanan */
+        }
+
+        .info-row .info-item {
+            margin-right: 20px; /* Jarak antar item */
+            margin-top: 5px;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Pusatkan teks */
+        }
+
+
+        .info-row .info-item {
+            margin-top: 5px;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Align text to center */
+        }
+
+        .info-number {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: #3B5998;
+        }
+
+        .additional-info button {
+            align-self: center;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #3B5998;
+            color: white;
+            padding: 30px 0;
+            width: 100%; /* Pastikan footer melebar penuh */
+            position: relative;
+            max-width: 100%; /* Lebar maksimal yang sama dengan navbar */
+            margin: 0 auto; /* Pusatkan footer */
+        }
+
+        .footer .footer-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .footer p,
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer button {
+            background-color: #fff;
+            color: #3B5998;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .footer button:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</body>
+
+</html>

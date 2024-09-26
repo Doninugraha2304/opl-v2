@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Mahasiswa</title>
+    <meta name="robots" content="noindex">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="custome.css">
+    <style>
+        /* Gaya untuk sub-menu */
+        .submenu {
+            list-style-type: none;
+            padding-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .submenu.show {
+            max-height: 500px; /* Nilai besar untuk memastikan semua item terlihat */
+        }
+
+        .submenu li a {
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            color: #ffffff; /* Sesuaikan dengan warna teks yang diinginkan */
+        }
+
+        .submenu li a:hover {
+            background-color: #FFC107; /* Warna latar saat hover */
+            color: #3B5998; /* Warna teks saat hover */
+        }
+
+        .submenu-icon {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .submenu-icon.rotate {
+            transform: rotate(180deg);
+        }
+
+        /* Tambahan gaya untuk ikon submenu jika diperlukan */
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #3B5998;">
+        <div class="navbar-brand">
+            <label class="burger" for="burger">
+                <input type="checkbox" id="burger" onclick="toggleSidebar()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <img src="assets/images/logo umkt.png" alt="Logo" style="height: 40px; margin-left: 10px;">
+        </div>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle btn-courses" type="button" id="coursesDropdown" onclick="toggleCoursesDropdown()" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">school</i> Courses
+            </button>
+            <div class="dropdown-menu" aria-labelledby="coursesDropdown" id="coursesDropdownMenu">
+                <h6 class="dropdown-header">Favorite Courses</h6>
+
+                <!-- Course 1 -->
+                <a class="dropdown-item" href="#">
+                    <img src="modul2.jpg" alt="Pengantar Teknologi Informasi Image" style="margin-right: 10px;">
+                    <span class="text-ellipsis" data-lang data-lang-en="Introduction to Information Technology" data-lang-id="Pengantar Teknologi Informasi">Pengantar Teknologi Informasi</span>
+                </a>
+
+                <!-- Course 2 -->
+                <a class="dropdown-item" href="#">
+                    <img src="modul1.jpg" alt="Course 2 Image" style="margin-right: 10px;">
+                    <span class="text-ellipsis" data-lang data-lang-en="Course 2" data-lang-id="Kursus 2">Kursus 2</span>
+                </a>
+
+                <!-- Course 3 -->
+                <a class="dropdown-item" href="#">
+                    <img src="modul2.jpg" alt="Course 3 Image" style="margin-right: 10px;">
+                    <span class="text-ellipsis" data-lang data-lang-en="Course 3" data-lang-id="Kursus 3">Kursus 3</span>
+                </a>
+
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" id="allCourses">
+                    <i class="material-icons">arrow_back</i> All Courses
+                </a>
+            </div>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item style-switch">
+                    <i class="material-icons" onclick="toggleStyleDropdown()">style</i>
+                    <div class="style-dropdown" id="styleDropdown">
+                        <a href="javascript:void(0)" onclick="switchToThemeDropdown()">Change Theme</a>
+                        <div class="dropdown-divider"></div>
+                        <button class="btn btn-primary" onclick="openCustomColor()">Custom Color</button>
+                        <div class="custom-color-container" style="display: none;">
+                            <h6 class="dropdown-header">Customize Page Colors</h6>
+                            <div class="dropdown-item">
+                                <label for="navbarColor">Navbar Color:</label>
+                                <input type="color" id="navbarColor" value="#3B5998">
+                            </div>
+                            <div class="dropdown-item">
+                                <label for="sidebarColor">Sidebar Color:</label>
+                                <input type="color" id="sidebarColor" value="#28A745">
+                            </div>
+                            <div class="dropdown-item">
+                                <label for="buttonColor">Button Color:</label>
+                                <input type="color" id="buttonColor" value="#007bff">
+                            </div>
+                            <button class="btn btn-primary" onclick="applyCustomColors()">Apply Colors</button>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item language-switch">
+                    <i class="material-icons" onclick="toggleDropdown()">language</i>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <a href="javascript:void(0)" onclick="switchLanguage('en')">English</a>
+                        <a href="javascript:void(0)" onclick="switchLanguage('id')">Bahasa Indonesia</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <button id="bookmarkButton" onclick="toggleBookmark()">
+                        <i class="material-icons">bookmark</i>
+                    </button>
+                </li>
+                <li class="nav-item notifications">
+                    <a class="nav-link" href="#notifications">
+                        <i class="material-icons">notifications</i>
+                        <span class="badge">3</span>
+                    </a>
+                </li>
+                <!-- Profil Dropdown -->
+                <li class="nav-item profile-link dropdown">
+                    <a class="nav-link" href="javascript:void(0)" onclick="toggleProfileDropdown()">
+                        <img id="navbarProfileImage" src="assets/images/people/110/guy-7.jpg" alt="Profil">
+                    </a>
+                    <div class="dropdown-menu" id="profileDropdownMenu">
+                        <!-- Profil Section -->
+                        <div class="dropdown-section">
+                            <h6>Profile</h6>
+                            <a class="dropdown-item" href="user-profile.html">
+                                <i class="material-icons">person</i>About me
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="material-icons">work</i>Portfolio
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="material-icons">check_circle</i>Credentials
+                            </a>
+                        </div>
+
+                        <div class="dropdown-divider"></div>
+
+                        <!-- Information Section -->
+                        <div class="dropdown-section">
+                            <h6>Information</h6>
+                            <a class="dropdown-item" href="#">
+                                <i class="material-icons">help_outline</i>Help & Support
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="material-icons">new_releases</i>What's new
+                            </a>
+                        </div>
+
+                        <div class="dropdown-divider"></div>
+
+                        <!-- Account Section -->
+                        <div class="dropdown-section">
+                            <h6>Account</h6>
+                            <a class="dropdown-item" href="acount.html">
+                                <i class="material-icons">settings</i>Account Settings
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="material-icons">history</i>Chat History
+                            </a>
+                        </div>
+
+                        <div class="dropdown-divider"></div>
+
+                        <!-- Logout -->
+                        <div class="dropdown-section">
+                            <div class="logout" onclick="logout()">Log out</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="wrapper" id="wrapper">
+        <div class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="javascript:void(0)" onclick="showContent('homeContent')"><i class="material-icons">home</i><span data-lang data-lang-en="Home" data-lang-id="Beranda">Beranda</span></a></li>
+                <li><a href="javascript:void(0)" onclick="showContent('learningContent')"><i class="material-icons">book</i><span data-lang data-lang-en="Learning Module" data-lang-id="Modul Pembelajaran">Modul Pembelajaran</span></a></li>
+                <li><a href="javascript:void(0)" onclick="showContent('agreementContent')"><i class="material-icons">assignment</i><span data-lang data-lang-en="Learning Agreement" data-lang-id="Perjanjian Pembelajaran">Perjanjian Pembelajaran</span></a></li>
+                <li><a href="javascript:void(0)" onclick="showContent('courseContent')"><i class="material-icons">school</i><span data-lang data-lang-en="Course" data-lang-id="Kursus">Kursus</span></a></li>
+                <li><a href="about.html"><i class="material-icons">info</i><span data-lang data-lang-en="About" data-lang-id="Tentang">Tentang</span></a></li>
+
+                <!-- Tambah Menu dengan Sub-menu Tambah Modul dan Tambah Kursus -->
+                <li>
+                    <a href="javascript:void(0)" onclick="toggleTambahSubmenu()">
+                        <i class="material-icons">add_circle</i><span data-lang data-lang-en="Add" data-lang-id="Tambah">Tambah</span>
+                        <i class="material-icons submenu-icon">keyboard_arrow_down</i>
+                    </a>
+                    <ul class="submenu" id="tambahSubmenu" style="display: none;">
+                        <li><a href="javascript:void(0)" onclick="openTambahModulModal()"><i class="material-icons">note_add</i><span data-lang data-lang-en="Add Module" data-lang-id="Tambah Modul">Tambah Modul</span></a></li>
+                        <li><a href="javascript:void(0)" onclick="openTambahKursusModal()"><i class="material-icons">add_box</i><span data-lang data-lang-en="Add Course" data-lang-id="Tambah Kursus">Tambah Kursus</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="search-bar">
+                <div class="search">
+                    <input type="text" id="searchInput" placeholder="Search...">
+                    <button type="submit" onclick="searchFunction()"><i class="material-icons">search</i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="content">
+                <!-- Section "Home Content" -->
+                <section id="homeContent" style="display:block;">
+                    <h2 data-lang data-lang-en="Welcome to Basic Programming" data-lang-id="Selamat Datang di Pemrograman Dasar">Selamat Datang di Pemrograman Dasar</h2>
+                    <p data-lang data-lang-en="This course will introduce you to the basics of programming using Python. You will learn about variables, data types, control structures, functions, and more." data-lang-id="Mata kuliah ini akan memperkenalkan Anda pada dasar-dasar pemrograman menggunakan Python. Anda akan belajar tentang variabel, tipe data, struktur kontrol, fungsi, dan lebih banyak lagi.">Mata kuliah ini akan memperkenalkan Anda pada dasar-dasar pemrograman menggunakan Python. Anda akan belajar tentang variabel, tipe data, struktur kontrol, fungsi, dan lebih banyak lagi.</p>
+                    <h3 data-lang data-lang-en="Learning Objectives" data-lang-id="Tujuan Pembelajaran">Tujuan Pembelajaran</h3>
+                    <ul>
+                        <li data-lang data-lang-en="Understand the basics of programming and data structures." data-lang-id="Memahami dasar-dasar pemrograman dan struktur data.">Memahami dasar-dasar pemrograman dan struktur data.</li>
+                        <li data-lang data-lang-en="Be able to write and run simple programs in Python." data-lang-id="Mampu menulis dan menjalankan program sederhana dalam Python.">Mampu menulis dan menjalankan program sederhana dalam Python.</li>
+                        <li data-lang data-lang-en="Develop problem-solving skills through algorithms and data structures." data-lang-id="Mengembangkan keterampilan pemecahan masalah melalui algoritma dan struktur data.">Mengembangkan keterampilan pemecahan masalah melalui algoritma dan struktur data.</li>
+                    </ul>
+                    <h3 data-lang data-lang-en="Modules and Materials" data-lang-id="Modul dan Materi">Modul dan Materi</h3>
+                    <div class="card-container" id="cardContainer">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="modul1.jpg" alt="Programming Image">
+                            </div>
+                            <div class="card-header" data-lang data-lang-en="Module 1: Introduction to Programming" data-lang-id="Modul 1: Pengantar Pemrograman">Modul 1: Pengantar Pemrograman</div>
+                            <div class="card-body">
+                                <h5 class="card-title" data-lang data-lang-en="Topic: Programming Basics" data-lang-id="Topik: Dasar-dasar Pemrograman">Topik: Dasar-dasar Pemrograman</h5>
+                                <p class="card-text" data-lang data-lang-en="Learn basic programming concepts, including variables, data types, and control structures." data-lang-id="Pelajari konsep dasar pemrograman, termasuk variabel, tipe data, dan struktur kontrol.">Pelajari konsep dasar pemrograman, termasuk variabel, tipe data, dan struktur kontrol.</p>
+                                <a href="#" class="btn btn-primary" data-lang data-lang-en="View Module" data-lang-id="Lihat Modul">Lihat Modul</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="modul2.jpg" alt="Advanced Programming Image">
+                            </div>
+                            <div class="card-header" data-lang data-lang-en="Module 2: Advanced Programming" data-lang-id="Modul 2: Pemrograman Lanjut">Modul 2: Pemrograman Lanjut</div>
+                            <div class="card-body">
+                                <h5 class="card-title" data-lang data-lang-en="Topic: Data Structures and Algorithms" data-lang-id="Topik: Struktur Data dan Algoritma">Topik: Struktur Data dan Algoritma</h5>
+                                <p class="card-text" data-lang data-lang-en="Learn about data structures like arrays, linked lists, and basic algorithms such as sorting and searching." data-lang-id="Pelajari tentang struktur data seperti array, linked list, dan algoritma dasar seperti sorting dan searching.">Pelajari tentang struktur data seperti array, linked list, dan algoritma dasar seperti sorting dan searching.</p>
+                                <a href="#" class="btn btn-primary" data-lang data-lang-en="View Module" data-lang-id="Lihat Modul">Lihat Modul</a>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 data-lang data-lang-en="Assignments and Activities" data-lang-id="Tugas dan Kegiatan">Tugas dan Kegiatan</h3>
+                    <div class="full-width-container">
+                        <div class="full-width-card">
+                            <div class="card-header" data-lang data-lang-en="Assignment 1: Basic Programming" data-lang-id="Tugas 1: Pemrograman Dasar">Tugas 1: Pemrograman Dasar</div>
+                            <div class="card-body">
+                                <h5 class="card-title" data-lang data-lang-en="Question:" data-lang-id="Soal:">Soal:</h5>
+                                <p class="card-text" data-lang data-lang-en="1. Explain what is meant by a variable and how to declare it in Python programming language." data-lang-id="1. Jelaskan apa yang dimaksud dengan variabel dan bagaimana cara mendeklarasikannya dalam bahasa pemrograman Python.">1. Jelaskan apa yang dimaksud dengan variabel dan bagaimana cara mendeklarasikannya dalam bahasa pemrograman Python.</p>
+                                <p class="card-text" data-lang data-lang-en="2. Create a simple program to calculate the area of a circle." data-lang-id="2. Buatlah sebuah program sederhana untuk menghitung luas lingkaran.">2. Buatlah sebuah program sederhana untuk menghitung luas lingkaran.</p>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="submission1" data-lang data-lang-en="Upload Assignment:" data-lang-id="Unggah Tugas:">Unggah Tugas:</label>
+                                        <input type="file" class="form-control-file" id="submission1">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" data-lang data-lang-en="Submit Assignment" data-lang-id="Kirim Tugas">Kirim Tugas</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 data-lang data-lang-en="Supporting Materials" data-lang-id="Materi Pendukung">Materi Pendukung</h3>
+                    <p data-lang data-lang-en="Access to documentation, reference books, and tutorial videos are available to support your learning." data-lang-id="Akses ke dokumentasi, buku referensi, dan video tutorial tersedia untuk membantu pembelajaran Anda.">Akses ke dokumentasi, buku referensi, dan video tutorial tersedia untuk membantu pembelajaran Anda.</p>
+                    <h3 data-lang data-lang-en="Announcements and Notifications" data-lang-id="Pengumuman dan Pemberitahuan">Pengumuman dan Pemberitahuan</h3>
+                    <p data-lang data-lang-en="Make sure to check this area regularly for important announcements." data-lang-id="Pastikan untuk memeriksa area ini secara teratur untuk pengumuman penting.">Pastikan untuk memeriksa area ini secara teratur untuk pengumuman penting.</p>
+                </section>
+
+                <!-- Section for Learning Agreement -->
+                <section id="agreementContent" style="display:none;">
+                    <h2 data-lang data-lang-en="Learning Agreement" data-lang-id="Perjanjian Pembelajaran">Perjanjian Pembelajaran</h2>
+                    <p data-lang data-lang-en="Learning Agreement is an agreement made between students and lecturers to ensure that learning objectives are achieved in a structured and clear manner. Here are the guidelines and rules that must be followed by all students in this course." data-lang-id="Learning Agreement adalah kesepakatan yang dibuat antara mahasiswa dan dosen untuk memastikan bahwa tujuan pembelajaran tercapai dengan cara yang terstruktur dan jelas. Berikut adalah panduan dan peraturan yang harus diikuti oleh semua mahasiswa dalam mata kuliah ini.">Learning Agreement adalah kesepakatan yang dibuat antara mahasiswa dan dosen untuk memastikan bahwa tujuan pembelajaran tercapai dengan cara yang terstruktur dan jelas. Berikut adalah panduan dan peraturan yang harus diikuti oleh semua mahasiswa dalam mata kuliah ini.</p>
+
+                    <h3 class="accordion-header" onclick="toggleAccordion(this)" data-lang data-lang-en="Objectives" data-lang-id="Tujuan">Tujuan</h3>
+                    <div class="accordion-body">
+                        <ul>
+                            <li data-lang data-lang-en="Ensure all students understand expectations in learning." data-lang-id="Memastikan semua mahasiswa memahami ekspektasi dalam pembelajaran.">Memastikan semua mahasiswa memahami ekspektasi dalam pembelajaran.</li>
+                            <li data-lang data-lang-en="Explain the rights and responsibilities of students and lecturers." data-lang-id="Menjelaskan hak dan tanggung jawab mahasiswa dan dosen.">Menjelaskan hak dan tanggung jawab mahasiswa dan dosen.</li>
+                            <li data-lang data-lang-en="Encourage a conducive and inclusive learning environment." data-lang-id="Mendorong lingkungan belajar yang kondusif dan inklusif.">Mendorong lingkungan belajar yang kondusif dan inklusif.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="accordion-header" onclick="toggleAccordion(this)" data-lang data-lang-en="Class Rules" data-lang-id="Peraturan Kelas">Peraturan Kelas</h3>
+                    <div class="accordion-body">
+                        <div class="card card-custom">
+                            <div class="card-body">
+                                <ul>
+                                    <li><strong data-lang data-lang-en="Attend on Time:" data-lang-id="Hadir Tepat Waktu:">Hadir Tepat Waktu:</strong> <span data-lang data-lang-en="Attendance and tardiness will be recorded and affect the final grade." data-lang-id="Kehadiran dan keterlambatan akan dicatat dan mempengaruhi nilai akhir.">Kehadiran dan keterlambatan akan dicatat dan mempengaruhi nilai akhir.</span></li>
+                                    <li><strong data-lang data-lang-en="Active Participation in Discussions:" data-lang-id="Keaktifan dalam Diskusi:">Keaktifan dalam Diskusi:</strong> <span data-lang data-lang-en="Active participation in class discussions is highly expected." data-lang-id="Partisipasi aktif dalam diskusi kelas sangat diharapkan.">Partisipasi aktif dalam diskusi kelas sangat diharapkan.</span></li>
+                                    <li><strong data-lang data-lang-en="Honor and Ethics:" data-lang-id="Kehormatan dan Etika:">Kehormatan dan Etika:</strong> <span data-lang data-lang-en="All students must treat each other with respect and maintain communication ethics." data-lang-id="Semua mahasiswa harus memperlakukan satu sama lain dengan hormat dan menjaga etika berkomunikasi.">Semua mahasiswa harus memperlakukan satu sama lain dengan hormat dan menjaga etika berkomunikasi.</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="accordion-header" onclick="toggleAccordion(this)" data-lang data-lang-en="Evaluation Methods" data-lang-id="Metode Evaluasi">Metode Evaluasi</h3>
+                    <div class="accordion-body">
+                        <p data-lang data-lang-en="Students will be evaluated based on several components, including:" data-lang-id="Mahasiswa akan dievaluasi berdasarkan beberapa komponen, termasuk:">Mahasiswa akan dievaluasi berdasarkan beberapa komponen, termasuk:</p>
+                        <ul>
+                            <li><strong data-lang data-lang-en="Assignments and Projects:" data-lang-id="Tugas dan Proyek:">Tugas dan Proyek:</strong> 40%</li>
+                            <li><strong data-lang data-lang-en="Midterm Exams:" data-lang-id="Ujian Tengah Semester:">Ujian Tengah Semester:</strong> 30%</li>
+                            <li><strong data-lang data-lang-en="Final Exams:" data-lang-id="Ujian Akhir Semester:">Ujian Akhir Semester:</strong> 30%</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="accordion-header" onclick="toggleAccordion(this)" data-lang data-lang-en="Assignment Submission" data-lang-id="Pengumpulan Tugas">Pengumpulan Tugas</h3>
+                    <div class="accordion-body">
+                        <p data-lang data-lang-en="Assignments must be submitted on time through the designated platform. Late submissions will incur a penalty of 10% per day." data-lang-id="Tugas harus dikumpulkan tepat waktu melalui platform yang ditentukan. Tugas yang terlambat akan dikenakan pengurangan nilai sebesar 10% per hari keterlambatan.">Tugas harus dikumpulkan tepat waktu melalui platform yang ditentukan. Tugas yang terlambat akan dikenakan pengurangan nilai sebesar 10% per hari keterlambatan.</p>
+                    </div>
+
+                    <h3 class="accordion-header" onclick="toggleAccordion(this)" data-lang data-lang-en="Academic Support" data-lang-id="Dukungan Akademik">Dukungan Akademik</h3>
+                    <div class="accordion-body">
+                        <p data-lang data-lang-en="If you need additional assistance, please contact the lecturer or teaching assistant for a mentoring session. Additional materials and references can be found in the campus library and e-learning platform." data-lang-id="Jika Anda memerlukan bantuan tambahan, silakan hubungi dosen atau asisten pengajar untuk sesi bimbingan. Materi tambahan dan referensi dapat ditemukan di perpustakaan kampus dan platform e-learning.">Jika Anda memerlukan bantuan tambahan, silakan hubungi dosen atau asisten pengajar untuk sesi bimbingan. Materi tambahan dan referensi dapat ditemukan di perpustakaan kampus dan platform e-learning.</p>
+                    </div>
+
+                    <h3 class="accordion-header" onclick="toggleAccordion(this)" data-lang data-lang-en="Contact and Communication" data-lang-id="Kontak dan Komunikasi">Kontak dan Komunikasi</h3>
+                    <div class="accordion-body">
+                        <p data-lang data-lang-en="For questions or course-related issues, you can contact the lecturer via email or the provided communication platform. Please note that responses may take up to 48 hours." data-lang-id="Untuk pertanyaan atau masalah terkait mata kuliah, Anda dapat menghubungi dosen melalui email atau platform komunikasi yang telah disediakan. Harap diperhatikan bahwa respons mungkin memerlukan waktu hingga 48 jam.">Untuk pertanyaan atau masalah terkait mata kuliah, Anda dapat menghubungi dosen melalui email atau platform komunikasi yang telah disediakan. Harap diperhatikan bahwa respons mungkin memerlukan waktu hingga 48 jam.</p>
+                    </div>
+                    <div class="card mt-4">
+                        <div class="card-header" data-lang data-lang-en="Agreement Form" data-lang-id="Form Persetujuan">Form Persetujuan</div>
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="studentName" data-lang data-lang-en="Student Name" data-lang-id="Nama Mahasiswa">Nama Mahasiswa</label>
+                                    <input type="text" class="form-control" id="studentName" placeholder="Masukkan Nama Anda">
+                                </div>
+                                <div class="form-group">
+                                    <label for="studentID" data-lang data-lang-en="Student ID" data-lang-id="NIM">NIM</label>
+                                    <input type="text" class="form-control" id="studentID" placeholder="Masukkan NIM Anda">
+                                </div>
+                                <div class="form-group">
+                                    <label for="agreementCheckbox">
+                                        <input type="checkbox" id="agreementCheckbox" required>
+                                        <span data-lang data-lang-en="I have read and agree to all the terms in this Learning Agreement." data-lang-id="Saya telah membaca dan menyetujui semua ketentuan dalam Learning Agreement ini.">Saya telah membaca dan menyetujui semua ketentuan dalam Learning Agreement ini.</span>
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary" data-lang data-lang-en="Submit" data-lang-id="Submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section "Course Content" -->
+                <section id="courseContent" style="display:none;">
+                    <h2 data-lang data-lang-en="Course Assignments" data-lang-id="Tugas Kursus">Tugas Kursus</h2>
+                    <div class="vertical-card-container centered-container">
+                        <div class="card full-width-card">
+                            <div class="card-header" data-lang data-lang-en="Assignment 1: Basic Programming" data-lang-id="Tugas 1: Pemrograman Dasar">Tugas 1: Pemrograman Dasar</div>
+                            <div class="card-body">
+                                <h5 class="card-title" data-lang data-lang-en="Question:" data-lang-id="Soal:">Soal:</h5>
+                                <p class="card-text" data-lang data-lang-en="1. Explain what is meant by a variable and how to declare it in Python programming language." data-lang-id="1. Jelaskan apa yang dimaksud dengan variabel dan bagaimana cara mendeklarasikannya dalam bahasa pemrograman Python.">1. Jelaskan apa yang dimaksud dengan variabel dan bagaimana cara mendeklarasikannya dalam bahasa pemrograman Python.</p>
+                                <p class="card-text" data-lang data-lang-en="2. Create a simple program to calculate the area of a circle." data-lang-id="2. Buatlah sebuah program sederhana untuk menghitung luas lingkaran.">2. Buatlah sebuah program sederhana untuk menghitung luas lingkaran.</p>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="submission1" data-lang data-lang-en="Upload Assignment:" data-lang-id="Unggah Tugas:">Unggah Tugas:</label>
+                                        <input type="file" class="form-control-file" id="submission1">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" data-lang data-lang-en="Submit Assignment" data-lang-id="Kirim Tugas">Kirim Tugas</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card full-width-card">
+                            <div class="card-header" data-lang data-lang-en="Assignment 2: Data Structures and Algorithms" data-lang-id="Tugas 2: Algoritma dan Struktur Data">Tugas 2: Algoritma dan Struktur Data</div>
+                            <div class="card-body">
+                                <h5 class="card-title" data-lang data-lang-en="Question:" data-lang-id="Soal:">Soal:</h5>
+                                <p class="card-text" data-lang data-lang-en="1. Explain the difference between arrays and linked lists." data-lang-id="1. Jelaskan perbedaan antara array dan linked list.">1. Jelaskan perbedaan antara array dan linked list.</p>
+                                <p class="card-text" data-lang data-lang-en="2. Implement the bubble sort algorithm in Python programming language and provide an example of its usage." data-lang-id="2. Implementasikan algoritma bubble sort dalam bahasa pemrograman Python dan berikan contoh penggunaannya.">2. Implementasikan algoritma bubble sort dalam bahasa pemrograman Python dan berikan contoh penggunaannya.</p>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="submission2" data-lang data-lang-en="Upload Assignment:" data-lang-id="Unggah Tugas:">Unggah Tugas:</label>
+                                        <input type="file" class="form-control-file" id="submission2">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" data-lang data-lang-en="Submit Assignment" data-lang-id="Kirim Tugas">Kirim Tugas</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal "Add Course" -->
+    <div class="modal fade" id="addCourseModal" tabindex="-1" aria-labelledby="addCourseModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCourseModalLabel">Add New Course</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCourseForm">
+                        <div class="form-group">
+                            <label for="courseName">Course Name</label>
+                            <input type="text" class="form-control" id="courseName" placeholder="Enter course name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="courseCode">Course Code</label>
+                            <input type="text" class="form-control" id="courseCode" placeholder="Enter course code" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitCourse()">Save Course</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal "Add Module" -->
+    <div class="modal fade" id="addModuleModal" tabindex="-1" aria-labelledby="addModuleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModuleModalLabel">Add New Module</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addModuleForm">
+                        <div class="form-group">
+                            <label for="moduleName">Module Name</label>
+                            <input type="text" class="form-control" id="moduleName" placeholder="Enter module name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="moduleCode">Module Code</label>
+                            <input type="text" class="form-control" id="moduleCode" placeholder="Enter module code" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="moduleDescription">Description</label>
+                            <textarea class="form-control" id="moduleDescription" rows="3" placeholder="Enter module description" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitModule()">Save Module</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="javascript2.js"></script>
+
+    <!-- Tambahkan Script Baru di bawah ini -->
+    <script>
+        // Fungsi untuk menampilkan konten default saat halaman dimuat
+        window.onload = function() {
+            showContent('homeContent'); // Default to show the home content first
+        };
+
+        // Fungsi untuk toggle sidebar
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            var burgerCheckbox = document.getElementById('burger');
+            var wrapper = document.getElementById('wrapper');
+            if (burgerCheckbox.checked) {
+                sidebar.classList.add('active');
+                wrapper.classList.add('sidebar-active');
+            } else {
+                sidebar.classList.remove('active');
+                wrapper.classList.remove('sidebar-active');
+            }
+        }
+
+        // Fungsi untuk menampilkan konten berdasarkan ID
+        function showContent(contentId) {
+            // Hide all content sections
+            var sections = document.querySelectorAll('.content section');
+            sections.forEach(section => section.style.display = 'none');
+
+            // Show the selected content
+            var selectedContent = document.getElementById(contentId);
+            if (selectedContent) {
+                selectedContent.style.display = 'block';
+            }
+        }
+
+        // Fungsi pencarian sederhana
+        function searchFunction() {
+            var input = document.getElementById('searchInput').value;
+            alert("Searching for: " + input);
+        }
+
+        // Fungsi untuk mengganti bahasa
+        function switchLanguage(language) {
+            if (language === 'en') {
+                alert('Language switched to English');
+                // Add logic to switch the content language to English
+            } else if (language === 'id') {
+                alert('Bahasa diubah ke Bahasa Indonesia');
+                // Add logic to switch the content language to Bahasa Indonesia
+            }
+        }
+
+        // Fungsi untuk toggle dropdown bahasa
+        function toggleDropdown() {
+            var dropdown = document.getElementById('languageDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.language-switch i')) {
+                var dropdowns = document.getElementsByClassName("language-dropdown");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        // Fungsi untuk mengedit konten yang dapat diedit
+        document.addEventListener('DOMContentLoaded', function() {
+            var editButton = document.getElementById('editButton');
+            var editableElements = document.querySelectorAll('.editable');
+
+            if (editButton) {
+                editButton.addEventListener('click', function() {
+                    var isActive = editButton.classList.toggle('active');
+                    editableElements.forEach(function(element) {
+                        element.contentEditable = isActive;
+                    });
+                });
+            }
+        });
+
+        // Fungsi untuk memuat lebih banyak konten
+        let contentLoaded = 9; // Jumlah konten yang sudah dimuat
+
+        function loadMoreContent() {
+            const cardContainer = document.getElementById('cardContainer');
+            let newContent = '';
+
+            for (let i = 0; i < 3; i++) { // Misalnya, menambahkan 3 kartu baru setiap kali tombol diklik
+                contentLoaded++;
+                newContent += `
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="modul2.jpg" alt="Advanced Programming Image">
+                        </div>
+                        <div class="card-header">Modul ${contentLoaded}: Pemrograman Lanjut</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Topik: Struktur Data dan Algoritma</h5>
+                            <p class="card-text">Pelajari tentang struktur data seperti array, linked list, dan algoritma dasar seperti sorting dan searching.</p>
+                            <a href="#" class="btn btn-primary">Lihat Modul</a>
+                        </div>
+                    </div>
+                `;
+            }
+
+            cardContainer.insertAdjacentHTML('beforeend', newContent);
+
+            // Optional: Sembunyikan tombol "Load More" jika sudah tidak ada konten tambahan
+            // if (contentLoaded >= totalAvailableContent) {
+            //     document.getElementById('loadMoreBtn').style.display = 'none';
+            // }
+        }
+
+        // JavaScript untuk menangani paginasi kartu
+
+        let currentPage = 1;
+        const cardsPerPage = 9;
+        const totalCards = 30; // Assume there are 30 cards, adjust as necessary
+
+        function renderCards() {
+            const cardContainer = document.getElementById('cardContainer');
+            cardContainer.innerHTML = '';
+
+            const start = (currentPage - 1) * cardsPerPage;
+            const end = start + cardsPerPage;
+            for (let i = start; i < end && i < totalCards; i++) {
+                const card = `
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="modul${i % 3 + 1}.jpg" alt="Programming Image ${i + 1}">
+                        </div>
+                        <div class="card-header">Modul ${i + 1}: Pengantar Pemrograman</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Topik: Dasar-dasar Pemrograman</h5>
+                            <p class="card-text">Pelajari konsep dasar pemrograman, termasuk variabel, tipe data, dan struktur kontrol.</p>
+                            <a href="#" class="btn btn-primary">Lihat Modul</a>
+                        </div>
+                    </div>
+                `;
+                cardContainer.innerHTML += card;
+            }
+
+            // Enable/disable buttons
+            var prevBtn = document.getElementById('prevBtn');
+            var nextBtn = document.getElementById('nextBtn');
+            if (prevBtn) {
+                prevBtn.disabled = currentPage === 1;
+            }
+            if (nextBtn) {
+                nextBtn.disabled = end >= totalCards;
+            }
+        }
+
+        function nextPage() {
+            if (currentPage * cardsPerPage < totalCards) {
+                currentPage++;
+                renderCards();
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderCards();
+            }
+        }
+
+        // Initial render
+        renderCards();
+
+        // Fungsi untuk menangani dropdown menu kursus
+        document.addEventListener('click', function(event) {
+            var dropdown = document.getElementById('coursesDropdown');
+            var dropdownMenu = document.getElementById('coursesDropdownMenu');
+
+            if (dropdown.contains(event.target)) {
+                dropdownMenu.classList.toggle('show');
+            } else {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+
+        // Fungsi untuk navigasi konten pembelajaran
+        function navigateLearning(direction) {
+            const learningContent = document.getElementById('learningContent');
+            const learningContentPage2 = document.getElementById('learningContentPage2');
+            const agreementContent = document.getElementById('agreementContent');
+
+            if (direction === 'next') {
+                if (learningContent && learningContent.style.display === 'block') {
+                    learningContent.style.display = 'none';
+                    if (learningContentPage2) {
+                        learningContentPage2.style.display = 'block';
+                    }
+                } else if (learningContentPage2 && learningContentPage2.style.display === 'block') {
+                    learningContentPage2.style.display = 'none';
+                    if (agreementContent) {
+                        agreementContent.style.display = 'block';
+                    }
+                }
+            } else if (direction === 'prev') {
+                if (learningContentPage2 && learningContentPage2.style.display === 'block') {
+                    learningContentPage2.style.display = 'none';
+                    if (learningContent) {
+                        learningContent.style.display = 'block';
+                    }
+                } else if (agreementContent && agreementContent.style.display === 'block') {
+                    agreementContent.style.display = 'none';
+                    if (learningContentPage2) {
+                        learningContentPage2.style.display = 'block';
+                    }
+                }
+            }
+        }
+
+        // Fungsi untuk toggle accordion
+        function toggleAccordion(element) {
+            const body = element.nextElementSibling;
+            if (body.style.display === 'block') {
+                body.style.display = 'none';
+            } else {
+                body.style.display = 'block';
+            }
+        }
+
+        // Fungsi untuk toggle dropdown tema
+        function toggleStyleDropdown() {
+            var dropdown = document.getElementById('styleDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Fungsi untuk membuka dropdown tema
+        function switchToThemeDropdown() {
+            // Implementasikan logika sesuai kebutuhan
+            alert('Switch to Theme Dropdown');
+        }
+
+        // Fungsi untuk membuka custom color
+        function openCustomColor() {
+            var container = document.querySelector('.custom-color-container');
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Fungsi untuk menerapkan custom colors
+        function applyCustomColors() {
+            var navbarColor = document.getElementById('navbarColor').value;
+            var sidebarColor = document.getElementById('sidebarColor').value;
+            var buttonColor = document.getElementById('buttonColor').value;
+
+            document.querySelector('.navbar').style.backgroundColor = navbarColor;
+            document.getElementById('sidebar').style.backgroundColor = sidebarColor;
+            var buttons = document.querySelectorAll('.btn-primary');
+            buttons.forEach(button => {
+                button.style.backgroundColor = buttonColor;
+                button.style.borderColor = buttonColor;
+            });
+
+            // Tutup custom color container setelah menerapkan warna
+            var container = document.querySelector('.custom-color-container');
+            container.style.display = 'none';
+        }
+
+        // Fungsi untuk toggle bookmark
+        function toggleBookmark() {
+            var bookmarkButton = document.getElementById('bookmarkButton');
+            bookmarkButton.classList.toggle('active');
+            // Additional logic for bookmarking can be added here
+        }
+
+        // Fungsi untuk logout
+        function logout() {
+            alert('You have been logged out.');
+            // Add actual logout logic here
+        }
+
+        // Fungsi untuk membuka modal Tambah Modul
+        function openTambahModulModal() {
+            $('#addModuleModal').modal('show');
+        }
+
+        // Fungsi untuk membuka modal Tambah Kursus
+        function openTambahKursusModal() {
+            $('#addCourseModal').modal('show');
+        }
+
+        // Fungsi untuk submit Course
+        function submitCourse() {
+            const courseName = document.getElementById('courseName').value;
+            const courseCode = document.getElementById('courseCode').value;
+
+            if (courseName && courseCode) {
+                alert(`Course Added:\nName: ${courseName}\nCode: ${courseCode}`);
+                // Add logic to actually add the course to the list or database
+                $('#addCourseModal').modal('hide'); // Using jQuery to hide the modal
+                // Optionally, refresh or update the courses dropdown
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+
+        // Fungsi untuk submit Module
+        function submitModule() {
+            const moduleName = document.getElementById('moduleName').value;
+            const moduleCode = document.getElementById('moduleCode').value;
+            const moduleDescription = document.getElementById('moduleDescription').value;
+
+            if (moduleName && moduleCode && moduleDescription) {
+                alert(`Module Added:\nName: ${moduleName}\nCode: ${moduleCode}\nDescription: ${moduleDescription}`);
+                // Add logic to actually add the module to the list or database
+                $('#addModuleModal').modal('hide'); // Using jQuery to hide the modal
+                // Optionally, refresh or update the modules list
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+
+        // Fungsi untuk toggle sub-menu Tambah
+        function toggleTambahSubmenu() {
+            var submenu = document.getElementById('tambahSubmenu');
+            var submenuIcon = submenu.parentElement.querySelector('.submenu-icon');
+            submenu.classList.toggle('show');
+            submenuIcon.classList.toggle('rotate');
+        }
+    </script>
+</body>
+
+</html>
